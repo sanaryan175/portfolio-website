@@ -92,9 +92,15 @@
   .btn-resume {
     background: var(--accent); color: #fff; border: none; padding: 8px 20px; border-radius: 8px;
     font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s; white-space: nowrap;
   }
   .btn-resume:hover { opacity: 0.85; }
+  /* Mobile resume link inside the hamburger menu */
+  .nav-links .btn-resume-mobile {
+    display: none; background: var(--accent); color: #fff; border-radius: 8px;
+    padding: 10px 14px; font-size: 14px; font-weight: 600; text-decoration: none;
+    text-align: center; margin-top: 4px;
+  }
   .nav-toggle {
     display: none; background: none; border: 1px solid var(--border2); color: var(--text);
     width: 40px; height: 40px; border-radius: 8px; cursor: pointer; font-size: 20px;
@@ -328,10 +334,12 @@
   .footer-social:hover { color: var(--text); border-color: var(--border2); }
   .footer-copy { text-align: center; font-size: 13px; color: var(--muted2); }
 
-  /* MOBILE */
+  /* ── TABLET (≤ 900px) ───────────────────────────────────────────────── */
   @media (max-width: 900px) {
     nav { padding: 0 20px; }
     .nav-toggle { display: flex; }
+
+    /* Slide-down mobile menu */
     .nav-links {
       display: none; position: absolute; top: calc(100% + 3px); left: 0; right: 0;
       flex-direction: column; background: rgba(10,11,15,0.98); backdrop-filter: blur(12px);
@@ -339,19 +347,87 @@
     }
     .nav-links.open { display: flex; }
     .nav-links a { padding: 10px 14px; }
+
+    /* Hide resume button in nav on mobile — show it inside the menu instead */
+    .btn-resume { display: none; }
+    .nav-links .btn-resume-mobile { display: block; }
+
     .container { padding: 0 20px; }
-    #about .about-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
+    section { padding: 72px 0; }
+
+    /* About */
+    #about .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-cards { grid-template-columns: repeat(2, 1fr); }
+
+    /* Skills — 2 columns on tablet */
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Projects — 2 columns on tablet */
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Contact */
     .contact-grid { grid-template-columns: 1fr; }
-    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .contact-card-value { word-break: break-all; }
+
+    /* Footer */
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .footer-links { flex-wrap: wrap; }
+
+    /* Form */
     .form-row { grid-template-columns: 1fr; }
-    .about-cards { grid-template-columns: 1fr 1fr; }
+    .contact-form { padding: 24px; }
+
+    /* Education header badge wrapping */
+    .edu-header { flex-wrap: wrap; gap: 8px; }
+    .edu-year-badge { align-self: flex-start; }
   }
+
+  /* ── MOBILE (≤ 600px) ───────────────────────────────────────────────── */
   @media (max-width: 600px) {
+    section { padding: 56px 0; }
+    .container { padding: 0 16px; }
+
+    /* Hero */
+    #home { padding-top: 110px; padding-bottom: 56px; }
+    .hero-name { letter-spacing: -1px; }
+    .hero-btns { flex-direction: column; align-items: center; gap: 12px; }
+    .btn-primary, .btn-outline { width: 100%; max-width: 320px; text-align: center; }
+    .hero-stats { gap: 20px; }
+    .stat-num { font-size: 22px; }
+
+    /* Skills — 1 column on small phones */
+    .skills-grid { grid-template-columns: 1fr; }
+
+    /* Projects — 1 column on small phones */
     .projects-grid { grid-template-columns: 1fr; }
-    .hero-stats { gap: 28px; }
-    .about-cards { grid-template-columns: 1fr 1fr; }
+
+    /* About cards — 2 columns still work, shrink value font */
+    .about-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .about-card { padding: 16px 10px; }
+    .about-card .value { font-size: 22px; }
+
+    /* Timeline — avoid icon+card overflowing */
+    .ach-timeline::before, .edu-timeline::before { left: 18px; }
+    .ach-item, .edu-item { gap: 16px; }
+    .ach-icon, .edu-icon { width: 36px; height: 36px; font-size: 14px; flex-shrink: 0; }
+    .ach-card, .edu-card { padding: 14px 16px; }
+    .ach-header { flex-direction: column; gap: 6px; }
+    .edu-header { flex-direction: column; gap: 6px; }
+
+    /* Footer */
+    .footer-links { display: none; } /* too cramped — hidden on tiny screens */
+    .footer-copy { font-size: 11px; }
+
+    /* Section divider spacing */
+    .section-divider { margin-bottom: 36px; }
+  }
+
+  /* ── VERY SMALL (≤ 380px) ───────────────────────────────────────────── */
+  @media (max-width: 380px) {
+    .hero-stats { flex-direction: column; align-items: center; gap: 16px; }
+    .about-cards { grid-template-columns: 1fr; }
+    .project-btns { flex-direction: column; }
+    .btn-demo, .btn-code { justify-content: center; }
   }
 </style>
 </head>
@@ -371,6 +447,7 @@
     <a href="#achievements">Achievements</a>
     <a href="#education">Education</a>
     <a href="#contact">Contact</a>
+    <a href="Sanskriti_Gupta_Resume_v5.pdf" download="Sanskriti_Gupta_Resume.pdf" class="btn-resume-mobile">⬇ Download Resume</a>
   </div>
   <a href="Sanskriti_Gupta_Resume_v5.pdf" download="Sanskriti_Gupta_Resume.pdf" class="btn-resume">⬇ Resume</a>
 </nav>
